@@ -1,0 +1,173 @@
+body {
+  font-family: sans-serif;
+}
+. fa-map-marker-alt {
+  display: inline;
+}
+
+.frame {
+  border: 1px solid #c0c0c0;
+  border-radius: 10px;
+  margin: 10px auto;
+  min-width: 650px;
+  max-width: 800px;
+  padding: 20px;
+}
+
+.app-groundhog {
+  background-image: url("images/groundhog-weather-3.png");
+  background-size: contain;
+  background-position-x: center;
+  background-repeat: no-repeat;
+  height: 125px;
+}
+
+.app-intro {
+  padding: 0px;
+  text-align: center;
+}
+.app-tagline {
+  font-size: 12px;
+  margin: -15px;
+  padding-bottom: 30px;
+  padding-top: 15px;
+}
+.app-title-weather {
+  color: #ff3366;
+  font-size: 48px;
+  font-weight: 600;
+  line-height: 36px;
+  margin-top: -20px;
+}
+.app-title-bytes {
+  color: #006ec5;
+  font-size: 48px;
+  font-weight: 600;
+  line-height: 36px;
+}
+
+.btn {
+  padding: 0;
+}
+
+.degree-div {
+  color: #c0c0c0;
+  font-size: 14px;
+}
+.degree-selected {
+  color: black;
+}
+
+.today-city {
+  line-height: 10px;
+  margin-left: 6px;
+}
+.today-daytime {
+  color: rgb(0, 0, 0, 0.4);
+  font-size: 10px;
+  margin-left: 2px;
+  margin-bottom: -5px;
+  margin-top: -10px;
+}
+.today-forecast {
+  border: 5px solid gray;
+  border-radius: 10px;
+  padding: 10px;
+}
+.today-high {
+  color: #ff3366;
+  font-size: 72px;
+  font-weight: 600;
+  line-height: 90px;
+  text-align: center;
+}
+.today-c-high {
+  color: #c0c0c0;
+  font-size: 14px;
+  text-decoration: none;
+}
+.today-f-high {
+  color: #c0c0c0;
+  font-size: 14px;
+  text-decoration: none;
+}
+.today-icon {
+  font-size: 80px;
+  line-height: 90px;
+  text-align: center;
+}
+.today-low {
+  color: #c0c0c0;
+  font-size: 30px;
+  font-weight: bold;
+  margin-top: -20px;
+}
+.today-c-low {
+  color: #c0c0c0;
+  font-size: 12px;
+  text-decoration: none;
+}
+.today-f-low {
+  color: #c0c0c0;
+  font-size: 12px;
+  text-decoration: none;
+}
+.today-summary {
+  text-align: center;
+  margin-bottom: -10px;
+}
+.today-title {
+  font-size: 36px;
+  font-weight: bold;
+  line-height: 36px;
+}
+
+.weekday-forecast {
+  border-radius: 10px;
+  margin: -5px;
+  padding: 0px;
+  text-align: center;
+}
+.weekday-high {
+  color: #ff3366;
+  font-weight: bold;
+}
+.weekday-icon {
+  font-size: 48px;
+  margin: 0 auto;
+}
+.weekday-low {
+  color: gray;
+  margin-top: -10px;
+}
+.weekday-title {
+  font-weight: bold;
+}
+
+.week-at-glance {
+  color: #006ec5;
+  font-size: 36px;
+  line-height: 36px;
+  margin-right: 10px;
+  text-align: center;
+}
+
+.credit {
+  color: rgb(0, 0, 0, 0.4);
+  font-size: 11px;
+  position: relative;
+  text-align: center;
+  top: -10px;
+}
+.credit a {
+  color: rgb(0, 0, 0, 0.4);
+  text-decoration: none;
+}
+.credit a:hover {
+  text-decoration: underline;
+}
+
+/* OVERRIDES DEFAULT */
+.degree-selected {
+  color: black;
+}

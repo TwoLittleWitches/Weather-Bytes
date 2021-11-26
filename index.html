@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Weather Bytes</title>
+    <meta charset="UTF-8" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
+      crossorigin="anonymous"
+    />
+    <link href="src/styles.css" rel="stylesheet" type="text/css" />
+		<script src="https://kit.fontawesome.com/ce0317f640.js" crossorigin="anonymous"></script>
+		<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+	</head>
+
+  <body>
+    <div class="container">
+			<div class="frame">
+				<div class="row">
+<!-- APP INTRO & SEARCH -->
+					<div class="col-6 app-intro">
+						<div class="app-title">
+							<span class="app-title-weather">weather</span>
+							<span class="app-title-bytes">bytes</span>
+						</div>
+						<div class="app-tagline">From the weather expert himself</div>
+						<form id="search-city" action="">
+							<input type="search" name="city" id="city" placeholder="Enter city here">
+							<button class="btn"><i class="fas fa-search-location"></i></button><i class="btn fas fa-map-marker-alt"></i>
+						</form>
+						
+						<div class="app-groundhog"></div>
+					</div>
+<!-- TODAYS FORECAST -->
+					<div class="col-6">
+						<div class="today-forecast">
+							<div class="row">
+								<div class="col-7">
+									<div class="today-daytime">Day | Date | Time</div>
+									<div class="today-title">TODAY</div>
+									<div class="today-city">Searching...</div>
+								</div>
+								<div class="col-5">
+									<span class="today-low">0</span> <span class="today-c-low">°C</span><span class="degree-div"> | </span><span class="today-f-low">°F</span>
+								</div>
+							</div>
+							<div class="row today-weather">
+								<div class="col-7">
+									<div><span class="today-high">1</span><a href="#" class="today-c-high degree-selected">°C</a><span class="degree-div"> | </span><a href="#" class="today-f-high">°F</a></div>
+								</div>
+								<div class="col-5 today-icon">🌤️</div>
+							</div>
+							<div class="today-summary">Sunny with a chance of clouds</div>
+						</div>
+						<div class="week-at-glance">week at a glance</div>
+					</div>
+				</div>
+<!-- WEEKDAY FORECASTS -->
+				<div class="row">
+					<div class="col-2">
+						<div class="border border-5 weekday-forecast">
+							<div class="weekday-title fs-6">Monday</div>
+							<div class="weekday-icon">☀️</div>
+							<div class="weekday-high fs-3">21°c</div>
+							<div class="weekday-low fs-6">16°c</div>
+						</div>
+					</div>
+					<div class="col-2 ">
+						<div class="border border-5 weekday-forecast">
+							<div class="weekday-title fs-6">Tuesday</div>
+							<div class="weekday-icon">🌦️</i></div>
+							<div class="weekday-high fs-3">15°c</div>
+							<div class="weekday-low fs-6">11°c</div>
+						</div>
+					</div>
+					<div class="col-2">
+						<div class="border border-5 weekday-forecast">
+							<div class="weekday-title fs-6">Wednesday</div>
+							<div class="weekday-icon">🌤️</div>
+							<div class="weekday-high fs-3">13°c</div>
+							<div class="weekday-low fs-6">7°c</div>
+						</div>
+					</div>
+					<div class="col-2">
+						<div class="border border-5 weekday-forecast">
+							<div class="weekday-title fs-6">Thursday</div>
+							<div class="weekday-icon">⛈️</div>
+							<div class="weekday-high fs-3">8°c</div>
+							<div class="weekday-low fs-6">2°c</div>
+						</div>
+					</div>
+					<div class="col-2">
+						<div class="border border-5 weekday-forecast">
+							<div class="weekday-title fs-6">Friday</div>
+							<div class="weekday-icon">☔</div>
+							<div class="weekday-high fs-3">3°c</div>
+							<div class="weekday-low fs-6">0°c</div>
+						</div>
+					</div>
+					<div class="col-2">
+						<div class="border border-5 weekday-forecast">
+							<div class="weekday-title fs-6">Saturday</div>
+							<div class="weekday-icon">❄️</div>
+							<div class="weekday-high fs-3">-1°c</div>
+							<div class="weekday-low fs-6">-5°c</div>
+						</div>
+					</div>
+				</div>
+				<script src="src/index.js"></script>
+<!-- END -->
+			</div>
+			<div class="credit">Weather Bytes by <a href="https://www.samanthashirley.com">Samantha Shirley</a></div>
+		</div>
+  </body>
+</html>
