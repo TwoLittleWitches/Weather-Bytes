@@ -8,7 +8,7 @@ let days = [
   "Wednesday",
   "Thursday",
   "Friday",
-  "Saturday"
+  "Saturday",
 ];
 let day = days[now.getDay()];
 
@@ -24,7 +24,7 @@ let months = [
   "Sept",
   "Oct",
   "Nov",
-  "Dec"
+  "Dec",
 ];
 let month = months[now.getMonth()];
 let date = now.getDate();
@@ -48,7 +48,11 @@ function getTemperature(response) {
   let todayTempNow = Math.round(response.data.main.temp);
   //let todayTempHigh = Math.round(response.data.main.temp_max);
   let todayTempLow = Math.round(response.data.main.temp_min);
-
+  let todayHumidity = response.data.main.humidity;
+  let todayWind = response.data.wind.speed;
+  let todaySummary = response.data.weather[0].main;
+  let todaySummaryDesc = response.data.weather[0].description;
+  let todayIcon = response.data.weather[0].icon;
   console.log(city);
   console.log(country);
   console.log(todayTempNow);
@@ -61,6 +65,8 @@ function getTemperature(response) {
 
   let todayTempNowCode = document.querySelector(".today-high");
   todayTempNowCode.innerHTML = `${todayTempNow}`;
+  let todaySummaryCode = document.querySelector("#today-summary");
+  todaySummaryCode.innerHTML = `${todaySummary} - ${todaySummaryDesc}`;
 
   /////
   function switchToF() {
