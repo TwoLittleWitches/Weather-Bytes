@@ -1,107 +1,111 @@
-// Get today info - day/time
-let now = new Date();
+// GET DATE & TIME
 
-let days = [
-  "Sunday",
-  "Monday",
-  "Tuesday",
-  "Wednesday",
-  "Thursday",
-  "Friday",
-  "Saturday",
-];
-let day = days[now.getDay()];
+function getDayTime() {
+  let now = new Date();
 
-let months = [
-  "Jan",
-  "Feb",
-  "Mar",
-  "Apr",
-  "May",
-  "Jun",
-  "Jul",
-  "Aug",
-  "Sept",
-  "Oct",
-  "Nov",
-  "Dec",
-];
-let month = months[now.getMonth()];
-let date = now.getDate();
-let hour = now.getHours();
-let min = now.getMinutes();
-let clock = "";
-if (hour > 12) {
-  clock = "pm";
-} else {
-  clock = "am";
+  let days = [
+    "Sunday",
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "Saturday",
+  ];
+  let day = days[now.getDay()];
+
+  let months = [
+    "Jan",
+    "Feb",
+    "Mar",
+    "Apr",
+    "May",
+    "Jun",
+    "Jul",
+    "Aug",
+    "Sept",
+    "Oct",
+    "Nov",
+    "Dec",
+  ];
+  let month = months[now.getMonth()];
+  let date = now.getDate();
+  let hour = now.getHours();
+  let min = now.getMinutes();
+  let clock = "";
+  if (hour > 12) {
+    clock = "pm";
+  } else {
+    clock = "am";
+  }
+  let daytime = document.querySelector(".today-daytime");
+  daytime.innerHTML = `${day} | ${month} ${date} | ${hour}:${min} ${clock}`;
 }
-let daytime = document.querySelector(".today-daytime");
-daytime.innerHTML = `${day} | ${month} ${date} | ${hour}:${min} ${clock}`;
 
-// Get weather updates via API
+// GET WEATHER UPDATES VIA API
 
 function getTemperature(response) {
   console.log(response);
   let city = response.data.name;
   let country = response.data.sys.country;
   let todayTempNow = Math.round(response.data.main.temp);
-  //let todayTempHigh = Math.round(response.data.main.temp_max);
+  let todayTempHigh = Math.round(response.data.main.temp_max);
   let todayTempLow = Math.round(response.data.main.temp_min);
-  let todayHumidity = response.data.main.humidity;
-  let todayWind = response.data.wind.speed;
+  let todayHumidity = Math.round(response.data.main.humidity);
+  let todayWind = Math.round(response.data.wind.speed);
   let todaySummary = response.data.weather[0].main;
   let todaySummaryDesc = response.data.weather[0].description;
   let todayIcon = response.data.weather[0].icon;
-  let todayIconURL = `http://openweathermap.org/img/wn/${todayIcon}@2x.png`;
 
+  console.log(todaySummary);
   console.log(city);
   console.log(country);
   console.log(todayTempNow);
   console.log(todayTempLow);
+  console.log(todayTempHigh);
 
   let cityCode = document.querySelector(".today-city");
   cityCode.innerHTML = `in ${city} (${country})`;
   let cityInputField = document.getElementById("city");
   cityInputField.value = city;
 
-  let todayTempNowCode = document.querySelector(".today-high");
-  todayTempNowCode.innerHTML = `${todayTempNow}`;
-  let todayWeatherIconCode = document.querySelector("#today-weather-icon");
-  todayWeatherIconCode.innerHTML = `<img src="${todayIconURL}">`;
+  let todayNowCode = document.querySelector(".today-now");
+  todayNowCode.innerHTML = `${todayTempNow}`;
   let todaySummaryCode = document.querySelector("#today-summary");
   todaySummaryCode.innerHTML = `${todaySummary} - ${todaySummaryDesc}`;
 
-  /////
+  // SWITCH TEMPERATURE UNITS
+
   function switchToF() {
     let ftemp = Math.round((todayTempNow * 9) / 5 + 32);
-    todayHighCode.innerHTML = ftemp;
-    let af = document.querySelector("a.today-f-high");
-    let ac = document.querySelector("a.today-c-high");
+    todayNowCode.innerHTML = ftemp;
+    let af = document.querySelector("a.today-f-now");
+    let ac = document.querySelector("a.today-c-now");
     af.classList.add("degree-selected");
     ac.classList.remove("degree-selected");
   }
   function switchToC() {
     let ctemp = todayTempNow;
-    todayHighCode.innerHTML = ctemp;
-    let ac = document.querySelector("a.today-c-high");
-    let af = document.querySelector("a.today-f-high");
+    todayNowCode.innerHTML = ctemp;
+    let ac = document.querySelector("a.today-c-now");
+    let af = document.querySelector("a.today-f-now");
     ac.classList.add("degree-selected");
     af.classList.remove("degree-selected");
   }
 
-  let cTodayHighCode = document.querySelector(".today-c-high");
-  cTodayHighCode.addEventListener("click", switchToC);
-
-  let fTodayHighCode = document.querySelector(".today-f-high");
-  fTodayHighCode.addEventListener("click", switchToF);
+  let cTodayTempNowCode = document.querySelector(".today-c-now");
+  cTodayTempNowCode.addEventListener("click", switchToC);
+  let fTodayTempNowCode = document.querySelector(".today-f-now");
+  fTodayTempNowCode.addEventListener("click", switchToF);
   /////
-
+  let todayTempHighCode = document.querySelector(".today-high");
+  todayTempHighCode.innerHTML = `${todayTempHigh}`;
   let todayTempLowCode = document.querySelector(".today-low");
   todayTempLowCode.innerHTML = `${todayTempLow}`;
 }
 
-// search by city
+// SEARCH BY CITY
+
 function searchCity(event) {
   event.preventDefault();
   let cityInput = document.querySelector("#city");
@@ -114,7 +118,8 @@ function searchCity(event) {
   axios.get(apiUrl).then(getTemperature);
 }
 
-// search by location
+// SEARCH BY LOCATION
+
 function getPosition(position) {
   let latitude = position.coords.latitude;
   let longitude = position.coords.longitude;
@@ -127,11 +132,15 @@ function getLocation() {
   navigator.geolocation.getCurrentPosition(getPosition);
 }
 
-// API defaults
+// API SETTINGS
+
 let apiKey = "83c74aac9e25e755951c68e175677df8";
 let tempUnits = "metric";
 
+// DEPLOY PAGE
+
 // Open with users current location
+getDayTime();
 getLocation();
 
 // Query by city
@@ -141,33 +150,3 @@ formCity.addEventListener("submit", searchCity);
 // Query by user location request
 let locationReq = document.querySelector(".fa-map-marker-alt");
 locationReq.addEventListener("click", getLocation);
-
-// Switch between celsius and farenheit
-
-//function switchToF() {
-//let temp = 22;
-//todayHighCode.innerHTML = Math.round((temp * 9) / 5 + 32);
-//let af = document.querySelector("a.today-f-high");
-//let ac = document.querySelector("a.today-c-high");
-//af.classList.add("degree-selected");
-//ac.classList.remove("degree-selected");
-//}
-//function switchToC() {
-//let temp = 72;
-//todayHighCode.innerHTML = Math.round(((temp - 32) * 5) / 9);
-//let ac = document.querySelector("a.today-c-high");
-//let af = document.querySelector("a.today-f-high");
-//ac.classList.add("degree-selected");
-//af.classList.remove("degree-selected");
-//}
-
-//let cTodayHighCode = document.querySelector(".today-c-high");
-//cTodayHighCode.addEventListener("click", switchToC);
-
-//let fTodayHighCode = document.querySelector(".today-f-high");
-//fTodayHighCode.addEventListener("click", switchToF);
-
-//let todayLowCode = document.querySelector(".today-low");
-//todayLowCode.innerHTML = `0`;
-
-let todayHighCode = document.querySelector(".today-high");

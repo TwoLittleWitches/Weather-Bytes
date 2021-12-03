@@ -74,45 +74,47 @@ body {
   border-radius: 10px;
   padding: 10px;
 }
-.today-high {
+.today-now {
   color: #ff3366;
   font-size: 72px;
   font-weight: 600;
   line-height: 90px;
   text-align: center;
 }
-.today-c-high {
-  color: #c0c0c0;
-  font-size: 14px;
-  text-decoration: none;
-}
-.today-f-high {
-  color: #c0c0c0;
-  font-size: 14px;
-  text-decoration: none;
-}
+
 .today-icon {
   font-size: 80px;
   line-height: 90px;
   text-align: center;
 }
+.today-high,
 .today-low {
   color: #c0c0c0;
   font-size: 30px;
   font-weight: bold;
-  margin-top: -20px;
+  margin-top: 0px;
+  margin-bottom: 0px;
 }
-.today-c-low {
-  color: #c0c0c0;
-  font-size: 12px;
-  text-decoration: none;
-}
+.today-c-low,
 .today-f-low {
   color: #c0c0c0;
-  font-size: 12px;
+  font-size: 10px;
+  text-decoration: none;
+}
+.today-c-high,
+.today-f-high {
+  color: #c0c0c0;
+  font-size: 10px;
+  text-decoration: none;
+}
+.today-c-now,
+.today-f-now {
+  color: #c0c0c0;
+  font-size: 10px;
   text-decoration: none;
 }
 .today-weather-summary {
+  font-size: 12px;
   text-align: center;
   margin-bottom: -10px;
 }
