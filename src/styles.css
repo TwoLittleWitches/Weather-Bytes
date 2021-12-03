@@ -15,7 +15,7 @@ body {
 }
 
 .app-groundhog {
-  background-image: url("/images/groundhog-weather-3.png");
+  background-image: url("../images/groundhog-weather-3.png");
   background-size: contain;
   background-position-x: center;
   background-repeat: no-repeat;
@@ -74,7 +74,11 @@ body {
   border-radius: 10px;
   padding: 10px;
 }
+
 .today-now {
+  text-align: center;
+}
+.today-temp-now {
   color: #ff3366;
   font-size: 72px;
   font-weight: 600;

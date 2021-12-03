@@ -56,7 +56,7 @@ function getTemperature(response) {
   let todayTempHigh = Math.round(response.data.main.temp_max);
   let todayTempLow = Math.round(response.data.main.temp_min);
   let todayHumidity = Math.round(response.data.main.humidity);
-  let todayWind = Math.round(response.data.wind.speed);
+  let todayWindSpeed = Math.round(response.data.wind.speed * 3.6);
   let todaySummary = response.data.weather[0].main;
   let todaySummaryDesc = response.data.weather[0].description;
   let todayWeatherIcon = response.data.weather[0].icon;
@@ -74,8 +74,12 @@ function getTemperature(response) {
   let cityInputField = document.getElementById("city");
   cityInputField.value = city;
 
-  let todayNowCode = document.querySelector(".today-now");
-  todayNowCode.innerHTML = `${todayTempNow}`;
+  let todayTempNowCode = document.querySelector(".today-temp-now");
+  todayTempNowCode.innerHTML = `${todayTempNow}`;
+  let todayHumidityCode = document.querySelector("#today-humidity");
+  todayHumidityCode.innerHTML = `${todayHumidity}%`;
+  let todayWindSpeedCode = document.querySelector("#today-windspeed");
+  todayWindSpeedCode.innerHTML = `${todayWindSpeed}`;
   let todayWeatherIconCode = document.querySelector("#today-weather-icon");
   todayWeatherIconCode.innerHTML = `<img src="${todayIconURL}">`;
   let todaySummaryCode = document.querySelector("#today-summary");
@@ -85,7 +89,7 @@ function getTemperature(response) {
 
   function switchToF() {
     let ftemp = Math.round((todayTempNow * 9) / 5 + 32);
-    todayNowCode.innerHTML = ftemp;
+    todayTempNowCode.innerHTML = ftemp;
     let af = document.querySelector("a.today-f-now");
     let ac = document.querySelector("a.today-c-now");
     af.classList.add("degree-selected");
@@ -93,7 +97,7 @@ function getTemperature(response) {
   }
   function switchToC() {
     let ctemp = todayTempNow;
-    todayNowCode.innerHTML = ctemp;
+    todayTempNowCode.innerHTML = ctemp;
     let ac = document.querySelector("a.today-c-now");
     let af = document.querySelector("a.today-f-now");
     ac.classList.add("degree-selected");
