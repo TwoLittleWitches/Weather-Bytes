@@ -53,6 +53,8 @@ function getTemperature(response) {
   let todaySummary = response.data.weather[0].main;
   let todaySummaryDesc = response.data.weather[0].description;
   let todayIcon = response.data.weather[0].icon;
+  let todayIconURL = `http://openweathermap.org/img/wn/${todayIcon}@2x.png`;
+
   console.log(city);
   console.log(country);
   console.log(todayTempNow);
@@ -65,6 +67,8 @@ function getTemperature(response) {
 
   let todayTempNowCode = document.querySelector(".today-high");
   todayTempNowCode.innerHTML = `${todayTempNow}`;
+  let todayWeatherIconCode = document.querySelector("#today-weather-icon");
+  todayWeatherIconCode.innerHTML = `<img src="${todayIconURL}">`;
   let todaySummaryCode = document.querySelector("#today-summary");
   todaySummaryCode.innerHTML = `${todaySummary} - ${todaySummaryDesc}`;
 
