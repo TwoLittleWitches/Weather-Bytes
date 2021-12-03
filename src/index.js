@@ -34,9 +34,13 @@ function getDayTime() {
   let min = now.getMinutes();
   let clock = "";
   if (hour > 12) {
+    hour = hour - 12;
     clock = "pm";
   } else {
     clock = "am";
+  }
+  if (min < 10) {
+    min = `0${min}`;
   }
   let daytime = document.querySelector(".today-daytime");
   daytime.innerHTML = `${day} | ${month} ${date} | ${hour}:${min} ${clock}`;
