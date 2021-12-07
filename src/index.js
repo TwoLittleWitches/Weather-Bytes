@@ -52,9 +52,9 @@ function getTemperature(response) {
   console.log(response);
   let city = response.data.name;
   let country = response.data.sys.country;
-  let todayTempNow = Math.round(response.data.main.temp);
-  let todayTempHigh = Math.round(response.data.main.temp_max);
-  let todayTempLow = Math.round(response.data.main.temp_min);
+  gTodayTempNow = Math.round(response.data.main.temp);
+  gTodayTempHigh = Math.round(response.data.main.temp_max);
+  gTodayTempLow = Math.round(response.data.main.temp_min);
   let todayHumidity = Math.round(response.data.main.humidity);
   let todayWindSpeed = Math.round(response.data.wind.speed * 3.6);
   let todaySummary = response.data.weather[0].main;
@@ -65,9 +65,9 @@ function getTemperature(response) {
   console.log(todaySummary);
   console.log(city);
   console.log(country);
-  console.log(todayTempNow);
-  console.log(todayTempLow);
-  console.log(todayTempHigh);
+  console.log(gTodayTempNow);
+  console.log(gTodayTempLow);
+  console.log(gTodayTempHigh);
 
   let cityCode = document.querySelector(".today-city");
   cityCode.innerHTML = `in ${city} (${country})`;
@@ -75,7 +75,7 @@ function getTemperature(response) {
   cityInputField.value = city;
 
   let todayTempNowCode = document.querySelector(".today-temp-now");
-  todayTempNowCode.innerHTML = `${todayTempNow}`;
+  todayTempNowCode.innerHTML = `${gTodayTempNow}`;
   let todayHumidityCode = document.querySelector("#today-humidity");
   todayHumidityCode.innerHTML = `${todayHumidity}%`;
   let todayWindSpeedCode = document.querySelector("#today-windspeed");
@@ -85,34 +85,34 @@ function getTemperature(response) {
   let todaySummaryCode = document.querySelector("#today-summary");
   todaySummaryCode.innerHTML = `${todaySummary} - ${todaySummaryDesc}`;
 
-  // SWITCH TEMPERATURE UNITS
-
-  function switchToF() {
-    let ftemp = Math.round((todayTempNow * 9) / 5 + 32);
-    todayTempNowCode.innerHTML = ftemp;
-    let af = document.querySelector("a.today-f-now");
-    let ac = document.querySelector("a.today-c-now");
-    af.classList.add("degree-selected");
-    ac.classList.remove("degree-selected");
-  }
-  function switchToC() {
-    let ctemp = todayTempNow;
-    todayTempNowCode.innerHTML = ctemp;
-    let ac = document.querySelector("a.today-c-now");
-    let af = document.querySelector("a.today-f-now");
-    ac.classList.add("degree-selected");
-    af.classList.remove("degree-selected");
-  }
-
   let cTodayTempNowCode = document.querySelector(".today-c-now");
   cTodayTempNowCode.addEventListener("click", switchToC);
   let fTodayTempNowCode = document.querySelector(".today-f-now");
   fTodayTempNowCode.addEventListener("click", switchToF);
-  /////
+
   let todayTempHighCode = document.querySelector(".today-high");
-  todayTempHighCode.innerHTML = `${todayTempHigh}`;
+  todayTempHighCode.innerHTML = `${gTodayTempHigh}`;
   let todayTempLowCode = document.querySelector(".today-low");
-  todayTempLowCode.innerHTML = `${todayTempLow}`;
+  todayTempLowCode.innerHTML = `${gTodayTempLow}`;
+}
+
+// SWITCH TEMPERATURE UNITS
+
+function switchToF() {
+  let ftemp = Math.round((gTodayTempNow * 9) / 5 + 32);
+  todayTempNowCode.innerHTML = ftemp;
+  let af = document.querySelector("a.today-f-now");
+  let ac = document.querySelector("a.today-c-now");
+  af.classList.add("degree-selected");
+  ac.classList.remove("degree-selected");
+}
+function switchToC() {
+  let ctemp = gTodayTempNow;
+  todayTempNowCode.innerHTML = ctemp;
+  let ac = document.querySelector("a.today-c-now");
+  let af = document.querySelector("a.today-f-now");
+  ac.classList.add("degree-selected");
+  af.classList.remove("degree-selected");
 }
 
 // SEARCH BY CITY
@@ -149,6 +149,11 @@ let apiKey = "83c74aac9e25e755951c68e175677df8";
 let tempUnits = "metric";
 
 // DEPLOY PAGE
+
+// GLOBAL VARIABLES
+let gTodayTempNow = null;
+let gTodayTempHigh = null;
+let gTodayTempLow = null;
 
 // Open with users current location
 getDayTime();
