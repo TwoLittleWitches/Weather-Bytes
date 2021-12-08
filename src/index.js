@@ -60,7 +60,7 @@ function getTemperature(response) {
   let todaySummary = response.data.weather[0].main;
   let todaySummaryDesc = response.data.weather[0].description;
   let todayWeatherIcon = response.data.weather[0].icon;
-  let todayIconURL = `http://openweathermap.org/img/wn/${todayWeatherIcon}@2x.png`;
+  let todayIconURL = `https://openweathermap.org/img/wn/${todayWeatherIcon}@2x.png`;
 
   console.log(todaySummary);
   console.log(city);
@@ -105,7 +105,7 @@ function displayForecast(response) {
   let weekdayDayCode = document.querySelector("#weekday-day");
   weekdayDayCode.innerHTML = response.data.daily[0].dt;
   let weekdayWeatherIconCode = document.querySelector("#weekday-icon");
-  weekdayWeatherIconCode.innerHTML = `<img src="http://openweathermap.org/img/wn/${response.data.daily[0].weather[0].icon}@2x.png">`;
+  weekdayWeatherIconCode.innerHTML = `<img src="https://openweathermap.org/img/wn/${response.data.daily[0].weather[0].icon}@2x.png">`;
   let weekdayTempHighCode = document.querySelector("#weekday-high");
   weekdayTempHighCode.innerHTML = Math.round(response.data.daily[0].temp.max);
   let weekdayTempLowCode = document.querySelector("#weekday-low");
