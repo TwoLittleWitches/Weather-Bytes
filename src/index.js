@@ -94,6 +94,19 @@ function getTemperature(response) {
   todayTempHighCode.innerHTML = `${gTodayTempHigh}`;
   let todayTempLowCode = document.querySelector(".today-low");
   todayTempLowCode.innerHTML = `${gTodayTempLow}`;
+
+  getForecast(response.data.coord);
+}
+
+function displayForecast(response) {
+  console.log(response);
+}
+
+// GET WEEKLY FORECAST
+function getForecast(coordinates) {
+  console.log(coordinates);
+  let apiURL = `https://api.openweathermap.org/data/2.5/onecall?lat=${coordinates.lat}&lon=${coordinates.lon}&exclude=current,minutely,hourly,alerts&units=${tempUnits}&appid=${apiKey}`;
+  axios.get(apiURL).then(displayForecast);
 }
 
 // SWITCH TEMPERATURE UNITS
@@ -143,12 +156,11 @@ function getLocation() {
   navigator.geolocation.getCurrentPosition(getPosition);
 }
 
-// API SETTINGS
+// DEPLOY PAGE
 
+// API SETTINGS
 let apiKey = "83c74aac9e25e755951c68e175677df8";
 let tempUnits = "metric";
-
-// DEPLOY PAGE
 
 // GLOBAL VARIABLES
 let gTodayTempNow = null;
@@ -159,10 +171,10 @@ let gTodayTempLow = null;
 getDayTime();
 getLocation();
 
-// Query by city
-let formCity = document.querySelector("#search-city");
-formCity.addEventListener("submit", searchCity);
-
-// Query by user location request
+// Query by user location if allowed (default) or called
 let locationReq = document.querySelector(".fa-map-marker-alt");
 locationReq.addEventListener("click", getLocation);
+
+// Query by city if called
+let formCity = document.querySelector("#search-city");
+formCity.addEventListener("submit", searchCity);
