@@ -99,7 +99,17 @@ function getTemperature(response) {
 }
 
 function displayForecast(response) {
-  console.log(response);
+  console.log(response.data.daily);
+  let days = ["Sun", "Mon", "Tues"];
+
+  let weekdayDayCode = document.querySelector("#weekday-day");
+  weekdayDayCode.innerHTML = response.data.daily[0].dt;
+  let weekdayWeatherIconCode = document.querySelector("#weekday-icon");
+  weekdayWeatherIconCode.innerHTML = `<img src="http://openweathermap.org/img/wn/${response.data.daily[0].weather[0].icon}@2x.png">`;
+  let weekdayTempHighCode = document.querySelector("#weekday-high");
+  weekdayTempHighCode.innerHTML = Math.round(response.data.daily[0].temp.max);
+  let weekdayTempLowCode = document.querySelector("#weekday-low");
+  weekdayTempLowCode.innerHTML = Math.round(response.data.daily[0].temp.min);
 }
 
 // GET WEEKLY FORECAST
