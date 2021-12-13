@@ -158,6 +158,17 @@ function displayForecast(response) {
 
   let days = [1, 2, 3, 4, 5, 6]; // removed 0 (current day)
   days.forEach(function (day) {
+    let weekdayWindSpeed = null;
+    if (tempUnits == "imperial") {
+      weekdayWindSpeed = `${Math.round(
+        response.data.daily[day].wind_speed
+      )} mph`;
+    } else {
+      weekdayWindSpeed = `${Math.round(
+        response.data.daily[day].wind_speed * 3.6
+      )} km/h`;
+    }
+
     weeklyForecastHTML =
       weeklyForecastHTML +
       `
@@ -169,6 +180,7 @@ function displayForecast(response) {
       <div class="weekday-icon" id="weekday-icon"><img src="https://openweathermap.org/img/wn/${
         response.data.daily[day].weather[0].icon
       }@2x.png"></div>
+      <div class="weekday-wind fs-6" id="weekday-wind">${weekdayWindSpeed}</div>
       <div class="weekday-high fs-3" id="weekday-high">${Math.round(
         response.data.daily[day].temp.max
       )}<span class="fs-6">${degrees}</span></div>
