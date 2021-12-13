@@ -49,21 +49,51 @@ function getDayTime() {
 function formatDay(timestamp) {
   let date = new Date(timestamp * 1000);
   let day = date.getDay();
-  let days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+  let days = [
+    "Sunday",
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "Saturday",
+  ];
   return days[day];
+}
+// SWITCH TEMPERATURE UNITS
+
+function switchToF() {
+  // let ftemp = Math.round((gTodayTempNow * 9) / 5 + 32);
+  // todayTempNowCode.innerHTML = ftemp;
+  searchCityF();
+  let af = document.querySelector("a.today-f-now");
+  let ac = document.querySelector("a.today-c-now");
+  af.classList.add("degree-selected");
+  ac.classList.remove("degree-selected");
+}
+function switchToC() {
+  //let ctemp = gTodayTempNow;
+  //todayTempNowCode.innerHTML = ctemp;
+  searchCityC();
+  let ac = document.querySelector("a.today-c-now");
+  let af = document.querySelector("a.today-f-now");
+  ac.classList.add("degree-selected");
+  af.classList.remove("degree-selected");
 }
 
 // GET WEATHER UPDATES VIA API
 
 function getTemperature(response) {
   console.log(response);
+  console.log(tempUnits);
+
   let city = response.data.name;
   let country = response.data.sys.country;
   gTodayTempNow = Math.round(response.data.main.temp);
   gTodayTempHigh = Math.round(response.data.main.temp_max);
   gTodayTempLow = Math.round(response.data.main.temp_min);
   let todayHumidity = Math.round(response.data.main.humidity);
-  let todayWindSpeed = Math.round(response.data.wind.speed * 3.6);
+  let todayWindSpeed = response.data.wind.speed;
   let todaySummary = response.data.weather[0].main;
   let todaySummaryDesc = response.data.weather[0].description;
   let todayWeatherIcon = response.data.weather[0].icon;
@@ -81,12 +111,16 @@ function getTemperature(response) {
   let cityInputField = document.getElementById("city");
   cityInputField.value = city;
 
-  //let todayTempNowCode = document.querySelector(".today-temp-now");
+  //let todayTempNowCode = document.querySelector(".today-temp-now"); (global variable)
   todayTempNowCode.innerHTML = `${gTodayTempNow}`;
   let todayHumidityCode = document.querySelector("#today-humidity");
   todayHumidityCode.innerHTML = `${todayHumidity}%`;
   let todayWindSpeedCode = document.querySelector("#today-windspeed");
-  todayWindSpeedCode.innerHTML = `${todayWindSpeed}`;
+  if (tempUnits == "imperial") {
+    todayWindSpeedCode.innerHTML = `${Math.round(todayWindSpeed)} mph`;
+  } else {
+    todayWindSpeedCode.innerHTML = `${Math.round(todayWindSpeed * 3.6)} km/h`;
+  }
   let todayWeatherIconCode = document.querySelector("#today-weather-icon");
   todayWeatherIconCode.innerHTML = `<img src="${todayIconURL}">`;
   let todaySummaryCode = document.querySelector("#today-summary");
@@ -105,18 +139,24 @@ function getTemperature(response) {
   getForecast(response.data.coord);
 }
 
-// GET WEEKLY FORECAST
+// WEEKDAYS FORECAST
+
 function getForecast(coordinates) {
   console.log(coordinates);
   let apiURL = `https://api.openweathermap.org/data/2.5/onecall?lat=${coordinates.lat}&lon=${coordinates.lon}&exclude=current,minutely,hourly,alerts&units=${tempUnits}&appid=${apiKey}`;
+  console.log(apiURL);
   axios.get(apiURL).then(displayForecast);
 }
 
 function displayForecast(response) {
   console.log(response.data.daily);
   let weeklyForecastHTML = "";
+  let degrees = "°C";
+  if (tempUnits == "imperial") {
+    degrees = "°F";
+  }
 
-  let days = [0, 1, 2, 3, 4, 5];
+  let days = [1, 2, 3, 4, 5, 6]; // removed 0 (current day)
   days.forEach(function (day) {
     weeklyForecastHTML =
       weeklyForecastHTML +
@@ -131,10 +171,10 @@ function displayForecast(response) {
       }@2x.png"></div>
       <div class="weekday-high fs-3" id="weekday-high">${Math.round(
         response.data.daily[day].temp.max
-      )}°c</div>
+      )}<span class="fs-6">${degrees}</span></div>
       <div class="weekday-low fs-6" id="weekday-low">${Math.round(
         response.data.daily[day].temp.min
-      )}°c</div>
+      )}</div>
     </div>
   </div>
   `;
@@ -144,38 +184,39 @@ function displayForecast(response) {
   displayForecastCode.innerHTML = weeklyForecastHTML;
 }
 
-// SWITCH TEMPERATURE UNITS
-
-function switchToF() {
-  let ftemp = Math.round((gTodayTempNow * 9) / 5 + 32);
-  //let todayTempNowCode = document.querySelector(".today-temp-now");
-  todayTempNowCode.innerHTML = ftemp;
-  let af = document.querySelector("a.today-f-now");
-  let ac = document.querySelector("a.today-c-now");
-  af.classList.add("degree-selected");
-  ac.classList.remove("degree-selected");
-}
-function switchToC() {
-  let ctemp = gTodayTempNow;
-  //let todayTempNowCode = document.querySelector(".today-temp-now");
-  todayTempNowCode.innerHTML = ctemp;
-  let ac = document.querySelector("a.today-c-now");
-  let af = document.querySelector("a.today-f-now");
-  ac.classList.add("degree-selected");
-  af.classList.remove("degree-selected");
-}
-
 // SEARCH BY CITY
 
 function searchCity(event) {
+  // default
   event.preventDefault();
   let cityInput = document.querySelector("#city");
   let cityCode = document.querySelector(".today-city");
-
   let searchCity = cityInput.value;
   let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${searchCity}&appid=${apiKey}&units=${tempUnits}`;
 
-  console.log(apiUrl);
+  console.log(`apiUrl: ${apiUrl}`);
+  axios.get(apiUrl).then(getTemperature);
+}
+
+function searchCityF(event) {
+  // with response in farenheit (imperial)
+  tempUnits = "imperial";
+  let cityInput = document.querySelector("#city");
+  let searchCity = cityInput.value;
+  let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${searchCity}&appid=${apiKey}&units=${tempUnits}`;
+
+  console.log(`apiUrl: ${apiUrl}`);
+  axios.get(apiUrl).then(getTemperature);
+}
+
+function searchCityC(event) {
+  // with response in celsius (metric)
+  tempUnits = "metric";
+  let cityInput = document.querySelector("#city");
+  let searchCity = cityInput.value;
+  let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${searchCity}&appid=${apiKey}&units=${tempUnits}`;
+
+  console.log(`apiUrl: ${apiUrl}`);
   axios.get(apiUrl).then(getTemperature);
 }
 
@@ -185,6 +226,7 @@ function getPosition(position) {
   let latitude = position.coords.latitude;
   let longitude = position.coords.longitude;
   let apiUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&units=${tempUnits}&appid=${apiKey}`;
+
   axios.get(apiUrl).then(getTemperature);
   console.log(apiUrl);
 }
@@ -193,7 +235,7 @@ function getLocation() {
   navigator.geolocation.getCurrentPosition(getPosition);
 }
 
-// DEPLOY PAGE
+//////////////////////////////////// DEPLOY PAGE ////////////////////////////////////
 
 // API SETTINGS
 let apiKey = "83c74aac9e25e755951c68e175677df8";
