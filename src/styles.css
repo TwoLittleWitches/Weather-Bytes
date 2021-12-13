@@ -1,6 +1,10 @@
 body {
   font-family: sans-serif;
 }
+
+a:hover {
+  color: #fd5534;
+}
 .fa-map-marker-alt {
   display: inline;
 }
@@ -33,7 +37,7 @@ body {
   padding-top: 15px;
 }
 .app-title-weather {
-  color: #ea5e42;
+  color: #fd5534;
   font-size: 48px;
   font-weight: 600;
   line-height: 36px;
@@ -55,7 +59,7 @@ body {
   font-size: 14px;
 }
 .degree-selected {
-  color: black;
+  color: #000000;
 }
 
 .today-city {
