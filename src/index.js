@@ -46,6 +46,13 @@ function getDayTime() {
   daytime.innerHTML = `${day} | ${month} ${date} | ${hour}:${min} ${clock}`;
 }
 
+function formatDay(timestamp) {
+  let date = new Date(timestamp * 1000);
+  let day = date.getDay();
+  let days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+  return days[day];
+}
+
 // GET WEATHER UPDATES VIA API
 
 function getTemperature(response) {
@@ -74,7 +81,7 @@ function getTemperature(response) {
   let cityInputField = document.getElementById("city");
   cityInputField.value = city;
 
-  let todayTempNowCode = document.querySelector(".today-temp-now");
+  //let todayTempNowCode = document.querySelector(".today-temp-now");
   todayTempNowCode.innerHTML = `${gTodayTempNow}`;
   let todayHumidityCode = document.querySelector("#today-humidity");
   todayHumidityCode.innerHTML = `${todayHumidity}%`;
@@ -98,20 +105,6 @@ function getTemperature(response) {
   getForecast(response.data.coord);
 }
 
-function displayForecast(response) {
-  console.log(response.data.daily);
-  let days = ["Sun", "Mon", "Tues"];
-
-  let weekdayDayCode = document.querySelector("#weekday-day");
-  weekdayDayCode.innerHTML = response.data.daily[0].dt;
-  let weekdayWeatherIconCode = document.querySelector("#weekday-icon");
-  weekdayWeatherIconCode.innerHTML = `<img src="https://openweathermap.org/img/wn/${response.data.daily[0].weather[0].icon}@2x.png">`;
-  let weekdayTempHighCode = document.querySelector("#weekday-high");
-  weekdayTempHighCode.innerHTML = Math.round(response.data.daily[0].temp.max);
-  let weekdayTempLowCode = document.querySelector("#weekday-low");
-  weekdayTempLowCode.innerHTML = Math.round(response.data.daily[0].temp.min);
-}
-
 // GET WEEKLY FORECAST
 function getForecast(coordinates) {
   console.log(coordinates);
@@ -119,10 +112,43 @@ function getForecast(coordinates) {
   axios.get(apiURL).then(displayForecast);
 }
 
+function displayForecast(response) {
+  console.log(response.data.daily);
+  let weeklyForecastHTML = "";
+
+  let days = [0, 1, 2, 3, 4, 5];
+  days.forEach(function (day) {
+    weeklyForecastHTML =
+      weeklyForecastHTML +
+      `
+  <div class="col-2">
+    <div class="border border-5 weekday-forecast">
+      <div class="weekday-title fs-6" id="weekday-day">${formatDay(
+        response.data.daily[day].dt
+      )}</div>
+      <div class="weekday-icon" id="weekday-icon"><img src="https://openweathermap.org/img/wn/${
+        response.data.daily[day].weather[0].icon
+      }@2x.png"></div>
+      <div class="weekday-high fs-3" id="weekday-high">${Math.round(
+        response.data.daily[day].temp.max
+      )}°c</div>
+      <div class="weekday-low fs-6" id="weekday-low">${Math.round(
+        response.data.daily[day].temp.min
+      )}°c</div>
+    </div>
+  </div>
+  `;
+  });
+
+  let displayForecastCode = document.querySelector("#weekday-forecast");
+  displayForecastCode.innerHTML = weeklyForecastHTML;
+}
+
 // SWITCH TEMPERATURE UNITS
 
 function switchToF() {
   let ftemp = Math.round((gTodayTempNow * 9) / 5 + 32);
+  //let todayTempNowCode = document.querySelector(".today-temp-now");
   todayTempNowCode.innerHTML = ftemp;
   let af = document.querySelector("a.today-f-now");
   let ac = document.querySelector("a.today-c-now");
@@ -131,6 +157,7 @@ function switchToF() {
 }
 function switchToC() {
   let ctemp = gTodayTempNow;
+  //let todayTempNowCode = document.querySelector(".today-temp-now");
   todayTempNowCode.innerHTML = ctemp;
   let ac = document.querySelector("a.today-c-now");
   let af = document.querySelector("a.today-f-now");
@@ -176,6 +203,8 @@ let tempUnits = "metric";
 let gTodayTempNow = null;
 let gTodayTempHigh = null;
 let gTodayTempLow = null;
+
+let todayTempNowCode = document.querySelector(".today-temp-now");
 
 // Open with users current location
 getDayTime();

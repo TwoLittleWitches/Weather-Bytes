@@ -33,7 +33,7 @@ body {
   padding-top: 15px;
 }
 .app-title-weather {
-  color: #ff3366;
+  color: #ea5e42;
   font-size: 48px;
   font-weight: 600;
   line-height: 36px;
@@ -79,7 +79,7 @@ body {
   text-align: center;
 }
 .today-temp-now {
-  color: #ff3366;
+  color: #ea5e42;
   font-size: 72px;
   font-weight: 600;
   line-height: 90px;
@@ -135,7 +135,7 @@ body {
   text-align: center;
 }
 .weekday-high {
-  color: #ff3366;
+  color: #ec6e4c;
   font-weight: bold;
 }
 .weekday-icon {
