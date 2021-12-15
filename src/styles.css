@@ -90,9 +90,8 @@ a:hover {
   text-align: center;
 }
 
-.today-icon {
-  font-size: 80px;
-  line-height: 90px;
+#today-weather-icon {
+  margin: 0 auto;
   text-align: center;
 }
 .today-high,
@@ -123,7 +122,7 @@ a:hover {
   font-size: 12px;
   text-decoration: none;
 }
-.today-weather-summary {
+#today-summary {
   font-size: 12px;
   text-align: center;
   margin-bottom: -10px;
