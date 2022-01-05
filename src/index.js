@@ -115,7 +115,7 @@ function getTemperature(response) {
   //let todayTempNowCode = document.querySelector(".today-temp-now"); (global variable)
   todayTempNowCode.innerHTML = `${gTodayTempNow}`;
   let todayFeelsLikeCode = document.querySelector("#today-feelslike");
-  todayFeelsLikeCode.innerHTML = `${todayFeelsLikeCode}%`;
+  todayFeelsLikeCode.innerHTML = `${todayFeelsLike}`;
   let todayHumidityCode = document.querySelector("#today-humidity");
   todayHumidityCode.innerHTML = `${todayHumidity}%`;
   let todayWindSpeedCode = document.querySelector("#today-windspeed");
