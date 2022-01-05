@@ -92,6 +92,7 @@ function getTemperature(response) {
   gTodayTempNow = Math.round(response.data.main.temp);
   gTodayTempHigh = Math.round(response.data.main.temp_max);
   gTodayTempLow = Math.round(response.data.main.temp_min);
+  let todayFeelsLike = Math.round(response.data.main.feels_like);
   let todayHumidity = Math.round(response.data.main.humidity);
   let todayWindSpeed = response.data.wind.speed;
   let todaySummary = response.data.weather[0].main;
@@ -113,6 +114,8 @@ function getTemperature(response) {
 
   //let todayTempNowCode = document.querySelector(".today-temp-now"); (global variable)
   todayTempNowCode.innerHTML = `${gTodayTempNow}`;
+  let todayFeelsLikeCode = document.querySelector("#today-feelslike");
+  todayFeelsLikeCode.innerHTML = `${todayFeelsLikeCode}%`;
   let todayHumidityCode = document.querySelector("#today-humidity");
   todayHumidityCode.innerHTML = `${todayHumidity}%`;
   let todayWindSpeedCode = document.querySelector("#today-windspeed");
